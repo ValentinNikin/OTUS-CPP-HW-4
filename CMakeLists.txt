@@ -22,6 +22,7 @@ add_library(
         ${MAIN_LIBRARY_NAME}
         ${PROJECT_SOURCE_DIR}/src/Printer.h
         ${PROJECT_SOURCE_DIR}/src/Printer.cpp
+        ${PROJECT_SOURCE_DIR}/src/type_traits_extending.h
 )
 
 set_target_properties(
