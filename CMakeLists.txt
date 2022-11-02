@@ -20,14 +20,14 @@ add_executable(
 
 add_library(
         ${MAIN_LIBRARY_NAME}
-        ${PROJECT_SOURCE_DIR}/src/Printer.h
-        ${PROJECT_SOURCE_DIR}/src/Printer.cpp
         ${PROJECT_SOURCE_DIR}/src/type_traits_extending.h
+        ${PROJECT_SOURCE_DIR}/src/utils.h
+        ${PROJECT_SOURCE_DIR}/src/utils.cpp
 )
 
 set_target_properties(
         ${EXECUTABLE_NAME} ${MAIN_LIBRARY_NAME} PROPERTIES
-        CXX_STANDARD 14
+        CXX_STANDARD 17
         CXX_STANDARD_REQUIRED ON
 )
 
