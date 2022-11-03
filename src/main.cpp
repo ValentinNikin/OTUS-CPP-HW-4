@@ -8,6 +8,7 @@
 #include "type_traits_extending.h"
 #include "utils.h"
 
+/// Специализация функции для целочисленных типов
 template<typename T>
 std::enable_if_t<std::is_integral<type_traits_extending::remove_cvref_t<T>>::value, void>
 print_ip(T val) {
@@ -18,6 +19,7 @@ print_ip(T val) {
     std::cout << utils::takeByte(val, 0) << std::endl;
 }
 
+/// Специализация функции для std::vector и std::list
 template<typename T>
 std::enable_if_t<type_traits_extending::is_vector_or_list<T>::value, void>
 print_ip(T val) {
@@ -30,12 +32,14 @@ print_ip(T val) {
     std::cout << *currentIt << std::endl;
 }
 
+/// Специализация функции для std::string
 template<typename T>
 std::enable_if_t<type_traits_extending::is_string<T>::value, void>
 print_ip(T val) {
     std::cout << val << std::endl;
 }
 
+/// Специализация функции для std::tuple
 template<typename T>
 std::enable_if_t<type_traits_extending::is_tuple<T>::value, void>
 print_ip(T val) {

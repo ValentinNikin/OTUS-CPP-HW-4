@@ -5,11 +5,10 @@
 #include <list>
 
 /**
- * @brief Содержит вспомогательные функции для определения типов
+ * Содержит вспомогательные функции для определения типов
  */
 struct type_traits_extending {
 public:
-    /// remove_cvref_t
     template<typename T>
     using remove_cvref_t
             = typename std::remove_cv<typename std::remove_reference<T>::type>::type;
@@ -75,15 +74,15 @@ private:
 
     ///}
 public:
-    /// is_vector_or_list
+    /// Определить, что тип является std::vector или std::list
     template<typename T>
     struct is_vector_or_list : _is_vector_or_list_impl<remove_cvref_t<T>>::type {};
 
-    /// is_string
+    /// Определить, что тип является std::string
     template<typename T>
     struct is_string : std::is_same<remove_cvref_t<T>, std::basic_string<char>>::type {};
 
-    /// is_tuple
+    /// Определить, что тип является std::tuple, и все типы элементов, которые хранятся в tuple совпадают
     template<typename T>
     struct is_tuple : _is_tuple_like_impl<remove_cvref_t<T>>::type {};
 };
