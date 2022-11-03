@@ -1,0 +1,4 @@
+<map id="type_traits_extending::is_tuple&lt; T &gt;" name="type_traits_extending::is_tuple&lt; T &gt;">
+<area shape="rect" id="node1" title="Определить, что тип является std::tuple, и все типы элементов, которые хранятся в tuple совпадают" alt="" coords="5,108,149,148"/>
+<area shape="rect" id="node2" title=" " alt="" coords="6,5,149,60"/>
+</map>
