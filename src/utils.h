@@ -20,6 +20,8 @@ namespace utils {
         };
 
         (printElement(std::get<Is>(tuple)), ...);
+
+        os << std::endl;
     }
 
     /**
