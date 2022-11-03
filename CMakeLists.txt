@@ -6,7 +6,7 @@ set(MAIN_LIBRARY_NAME print_ip_lib)
 set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VERSION 0.0.${PATCH_VERSION})
 
-option(ENABLED_TESTING ON)
+option(ENABLED_TESTING OFF)
 
 project(otus-cpp-hw-4 VERSION ${PROJECT_VERSION})
 
@@ -14,16 +14,17 @@ configure_file(
         ${PROJECT_SOURCE_DIR}/version.h.in
         ${PROJECT_SOURCE_DIR}/src/version.h)
 
-add_executable(
-        ${EXECUTABLE_NAME}
-        ${PROJECT_SOURCE_DIR}/src/main.cpp)
-
 add_library(
-        ${MAIN_LIBRARY_NAME}
+        ${MAIN_LIBRARY_NAME} OBJECT
         ${PROJECT_SOURCE_DIR}/src/type_traits_extending.h
         ${PROJECT_SOURCE_DIR}/src/utils.h
         ${PROJECT_SOURCE_DIR}/src/utils.cpp
 )
+
+add_executable(
+        ${EXECUTABLE_NAME}
+        ${PROJECT_SOURCE_DIR}/src/main.cpp
+        $<TARGET_OBJECTS:${MAIN_LIBRARY_NAME}>)
 
 set_target_properties(
         ${EXECUTABLE_NAME} ${MAIN_LIBRARY_NAME} PROPERTIES

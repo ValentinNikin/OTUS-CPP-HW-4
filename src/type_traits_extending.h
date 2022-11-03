@@ -4,15 +4,23 @@
 #include <vector>
 #include <list>
 
+/**
+ * @brief Содержит вспомогательные функции для определения типов
+ */
 struct type_traits_extending {
+public:
+    /// remove_cvref_t
+    template<typename T>
+    using remove_cvref_t
+            = typename std::remove_cv<typename std::remove_reference<T>::type>::type;
 private:
 
+    /// or
     template<typename T1, typename T2>
     struct _or : std::conditional<T1::value, T1, T2>::type {};
 
-    template<typename T>
-    using _remove_cvref_t
-            = typename std::remove_cv<typename std::remove_reference<T>::type>::type;
+    ///@{
+    /// Help functions to determine the type is vector or list
 
     struct _help_is_vector_or_list_impl {
         template<
@@ -37,11 +45,16 @@ private:
         typedef decltype(_test<T>(0)) type;
     };
 
+    ///}
+
+    ///@{
+    /// Help functions to determine the type is tuple
+
     struct _help_is_same_variadic_type {
         template<
                 typename T,
                 typename... Types,
-                typename = std::enable_if_t<(std::is_same<_remove_cvref_t<T>, _remove_cvref_t<Types>>::value && ...), void>
+                typename = std::enable_if_t<(std::is_same<remove_cvref_t<T>, remove_cvref_t<Types>>::value && ...), void>
         >
         static std::true_type _test(int);
 
@@ -60,13 +73,17 @@ private:
     template<typename T, typename... Types>
     struct _is_tuple_like_impl<std::tuple<T, Types...>> : _is_same_variadic_type_impl<T, Types...>::type {};
 
+    ///}
 public:
+    /// is_vector_or_list
     template<typename T>
-    struct is_vector_or_list : _is_vector_or_list_impl<_remove_cvref_t<T>>::type {};
+    struct is_vector_or_list : _is_vector_or_list_impl<remove_cvref_t<T>>::type {};
 
+    /// is_string
     template<typename T>
-    struct is_string : std::is_same<_remove_cvref_t<T>, std::basic_string<char>> {};
+    struct is_string : std::is_same<remove_cvref_t<T>, std::basic_string<char>>::type {};
 
+    /// is_tuple
     template<typename T>
-    struct is_tuple : _is_tuple_like_impl<_remove_cvref_t<T>>::type {};
+    struct is_tuple : _is_tuple_like_impl<remove_cvref_t<T>>::type {};
 };

@@ -9,7 +9,7 @@
 #include "utils.h"
 
 template<typename T>
-std::enable_if_t<std::is_integral<T>::value, void>
+std::enable_if_t<std::is_integral<type_traits_extending::remove_cvref_t<T>>::value, void>
 print_ip(T val) {
     auto size = sizeof(T);
     for (std::size_t i = size - 1; i > 0; i--) {
@@ -39,7 +39,7 @@ print_ip(T val) {
 template<typename T>
 std::enable_if_t<type_traits_extending::is_tuple<T>::value, void>
 print_ip(T val) {
-    utils::printTupleImpl(std::cout, val, std::make_index_sequence<std::tuple_size_v<T>>{});
+    utils::printTuple(std::cout, val, std::make_index_sequence<std::tuple_size_v<T>>{});
 }
 
 int main (int, char **) {
